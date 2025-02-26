@@ -6,3 +6,4 @@ build/
 doc/api/
 example/issue_*
 example/local.dart
+/pubspec.lock

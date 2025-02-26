@@ -1,4 +1,4 @@
-import 'package:encrypt/encrypt.dart';
+import 'package:tekartik_encrypt/encrypt.dart';
 
 void main() {
   final key = Key.fromBase64('BwwfHxgKDwcXAxkWDwEHDBseIREPIA4QDxYOEBIDIRY=');

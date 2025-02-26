@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:encrypt/encrypt.dart';
+import 'package:tekartik_encrypt/encrypt.dart';
 
 void main() {
   final plainText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit';

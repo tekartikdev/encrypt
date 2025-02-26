@@ -1,4 +1,4 @@
-import 'package:encrypt/encrypt.dart';
+import 'package:tekartik_encrypt/encrypt.dart';
 import 'package:test/test.dart';
 
 void main() {
