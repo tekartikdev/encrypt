@@ -1,4 +1,4 @@
-part of encrypt;
+part of '../encrypt.dart';
 
 /// Wraps Algorithms in a unique Container.
 class Encrypter {
@@ -20,11 +20,7 @@ class Encrypter {
   }
 
   /// Calls [encrypt] on the wrapped Algorithm.
-  Encrypted encrypt(
-    String input, {
-    IV? iv,
-    Uint8List? associatedData,
-  }) {
+  Encrypted encrypt(String input, {IV? iv, Uint8List? associatedData}) {
     return encryptBytes(
       convert.utf8.encode(input),
       iv: iv,
@@ -33,19 +29,18 @@ class Encrypter {
   }
 
   /// Calls [decrypt] on the wrapped Algorith without UTF-8 decoding.
-  List<int> decryptBytes(Encrypted encrypted,
-      {IV? iv, Uint8List? associatedData}) {
+  List<int> decryptBytes(
+    Encrypted encrypted, {
+    IV? iv,
+    Uint8List? associatedData,
+  }) {
     return algo
         .decrypt(encrypted, iv: iv, associatedData: associatedData)
         .toList();
   }
 
   /// Calls [decrypt] on the wrapped Algorithm.
-  String decrypt(
-    Encrypted encrypted, {
-    IV? iv,
-    Uint8List? associatedData,
-  }) {
+  String decrypt(Encrypted encrypted, {IV? iv, Uint8List? associatedData}) {
     return convert.utf8.decode(
       decryptBytes(encrypted, iv: iv, associatedData: associatedData),
       allowMalformed: true,

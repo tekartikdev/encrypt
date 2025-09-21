@@ -1,4 +1,4 @@
-part of encrypt;
+part of '../../encrypt.dart';
 
 /// Wraps the Fernet Algorithm.
 class Fernet implements Algorithm {
@@ -56,8 +56,9 @@ class Fernet implements Algorithm {
     }
     iv = IV(Uint8List.fromList(data.sublist(9, 25)));
     final length = data.length;
-    final ciphertext =
-        Encrypted(Uint8List.fromList(data.sublist(25, length - 32)));
+    final ciphertext = Encrypted(
+      Uint8List.fromList(data.sublist(25, length - 32)),
+    );
     final aes = AES(_encryptionKey, mode: AESMode.cbc);
     final decrypted = aes.decrypt(ciphertext, iv: iv);
     return decrypted;

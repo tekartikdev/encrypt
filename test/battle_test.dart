@@ -8,9 +8,11 @@ void main() {
       final encrypter = Encrypter(AES(Key.allZerosOfLength(32)));
 
       expect(
-          Encrypted.fromBase64(encoded),
-          equals(encrypter.encrypt('Text to encrypt 😀',
-              iv: IV.allZerosOfLength(16))));
+        Encrypted.fromBase64(encoded),
+        equals(
+          encrypter.encrypt('Text to encrypt 😀', iv: IV.allZerosOfLength(16)),
+        ),
+      );
     });
   });
 }

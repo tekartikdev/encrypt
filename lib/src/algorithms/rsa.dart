@@ -1,4 +1,4 @@
-part of encrypt;
+part of '../../encrypt.dart';
 
 // Abstract class for encryption and signing.
 abstract class AbstractRSA {
@@ -16,12 +16,8 @@ abstract class AbstractRSA {
       case RSADigest.SHA256:
         return OAEPEncoding.withSHA256(RSAEngine());
       case RSADigest.SHA512:
-        return OAEPEncoding.withCustomDigest(
-          () => SHA512Digest(),
-          RSAEngine(),
-        );
+        return OAEPEncoding.withCustomDigest(() => SHA512Digest(), RSAEngine());
       case RSADigest.SHA1:
-      default:
         return OAEPEncoding.withSHA1(RSAEngine());
     }
   }
@@ -40,17 +36,17 @@ abstract class AbstractRSA {
 
 /// Wraps the RSA Engine Algorithm.
 class RSA extends AbstractRSA implements Algorithm {
-  RSA(
-      {RSAPublicKey? publicKey,
-      RSAPrivateKey? privateKey,
-      RSAEncoding encoding = RSAEncoding.PKCS1,
-      RSADigest digest = RSADigest.SHA1})
-      : super(
-          publicKey: publicKey,
-          privateKey: privateKey,
-          encoding: encoding,
-          digest: digest,
-        );
+  RSA({
+    RSAPublicKey? publicKey,
+    RSAPrivateKey? privateKey,
+    RSAEncoding encoding = RSAEncoding.PKCS1,
+    RSADigest digest = RSADigest.SHA1,
+  }) : super(
+         publicKey: publicKey,
+         privateKey: privateKey,
+         encoding: encoding,
+         digest: digest,
+       );
 
   @override
   Encrypted encrypt(Uint8List bytes, {IV? iv, Uint8List? associatedData}) {
@@ -85,9 +81,9 @@ class RSASigner extends AbstractRSA implements SignerAlgorithm {
   final Digest _digestCipher;
 
   RSASigner(this.digest, {RSAPublicKey? publicKey, RSAPrivateKey? privateKey})
-      : _digestId = _digestIdFactoryMap[digest]!.id,
-        _digestCipher = _digestIdFactoryMap[digest]!.factory(),
-        super(publicKey: publicKey, privateKey: privateKey);
+    : _digestId = _digestIdFactoryMap[digest]!.id,
+      _digestCipher = _digestIdFactoryMap[digest]!.factory(),
+      super(publicKey: publicKey, privateKey: privateKey);
 
   @override
   Encrypted sign(Uint8List bytes) {
@@ -130,7 +126,12 @@ class RSASigner extends AbstractRSA implements SignerAlgorithm {
 
     try {
       final length = _cipher.processBlock(
-          signature.bytes, 0, signature.bytes.length, _signature, 0);
+        signature.bytes,
+        0,
+        signature.bytes.length,
+        _signature,
+        0,
+      );
       _signature = _signature.sublist(0, length);
     } on ArgumentError {
       return false;
@@ -170,8 +171,9 @@ class RSASigner extends AbstractRSA implements SignerAlgorithm {
   }
 
   Uint8List _encode(Uint8List hash) {
-    final digestBytes =
-        Uint8List(2 + 2 + _digestId.length + 2 + 2 + hash.length);
+    final digestBytes = Uint8List(
+      2 + 2 + _digestId.length + 2 + 2 + hash.length,
+    );
     var i = 0;
 
     digestBytes[i++] = 48;
@@ -193,25 +195,17 @@ class RSASigner extends AbstractRSA implements SignerAlgorithm {
   }
 }
 
-enum RSAEncoding {
-  PKCS1,
-  OAEP,
-}
+enum RSAEncoding { PKCS1, OAEP }
 
-enum RSADigest {
-  SHA1,
-  SHA256,
-  SHA512,
-}
+enum RSADigest { SHA1, SHA256, SHA512 }
 
-enum RSASignDigest {
-  SHA256,
-  SHA512,
-}
+enum RSASignDigest { SHA256, SHA512 }
 
 final _digestIdFactoryMap = <RSASignDigest, _DigestIdFactory>{
   RSASignDigest.SHA256: _DigestIdFactory(
-      decodeHexString('0609608648016503040201'), () => SHA256Digest())
+    decodeHexString('0609608648016503040201'),
+    () => SHA256Digest(),
+  ),
 };
 
 class _DigestIdFactory {

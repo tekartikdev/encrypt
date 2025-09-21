@@ -6,16 +6,26 @@ import 'package:tekartik_encrypt/encrypt.dart';
 void main(List<String> args) {
   final argParser = ArgParser();
 
-  argParser.addOption('length',
-      abbr: 'l', defaultsTo: '32', help: 'The length of the bytes');
+  argParser.addOption(
+    'length',
+    abbr: 'l',
+    defaultsTo: '32',
+    help: 'The length of the bytes',
+  );
 
-  argParser.addOption('base',
-      abbr: 'b',
-      defaultsTo: '64',
-      help: 'Bytes represented as base 64 or base 16 (Hexdecimal)');
+  argParser.addOption(
+    'base',
+    abbr: 'b',
+    defaultsTo: '64',
+    help: 'Bytes represented as base 64 or base 16 (Hexdecimal)',
+  );
 
-  argParser.addFlag('help',
-      abbr: 'h', defaultsTo: false, help: 'Show this help message');
+  argParser.addFlag(
+    'help',
+    abbr: 'h',
+    defaultsTo: false,
+    help: 'Show this help message',
+  );
 
   final results = argParser.parse(args);
 

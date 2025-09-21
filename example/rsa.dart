@@ -35,12 +35,14 @@ void main() async {
   print(encrypted.base64);
 
   // OAEP (SHA256)
-  encrypter = Encrypter(RSA(
-    publicKey: publicKey,
-    privateKey: privKey,
-    encoding: RSAEncoding.OAEP,
-    digest: RSADigest.SHA256,
-  ));
+  encrypter = Encrypter(
+    RSA(
+      publicKey: publicKey,
+      privateKey: privKey,
+      encoding: RSAEncoding.OAEP,
+      digest: RSADigest.SHA256,
+    ),
+  );
   encrypted = encrypter.encrypt(plainText);
   decrypted = encrypter.decrypt(encrypted);
 

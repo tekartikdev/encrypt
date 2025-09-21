@@ -54,8 +54,10 @@ void main() {
       final strechedKey = shortKey.stretch(desiredLength, salt: salt);
 
       expect(strechedKey.bytes.length, equals(desiredLength));
-      expect(strechedKey.base64,
-          equals('ykT8qFmrPp7TJyzY+E2NoBNjfWymzKOs1OCbRsO67fo='));
+      expect(
+        strechedKey.base64,
+        equals('ykT8qFmrPp7TJyzY+E2NoBNjfWymzKOs1OCbRsO67fo='),
+      );
     });
 
     test('Key.length', () {
