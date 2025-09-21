@@ -1,6 +1,6 @@
 import 'package:tekartik_encrypt/encrypt.dart';
 import 'package:tekartik_encrypt/encrypt_io.dart';
-import 'package:pointycastle/export.dart' hide Signer hide RSASigner;
+import 'package:pointycastle/export.dart' hide Signer, RSASigner;
 import 'package:test/test.dart';
 
 void main() {
